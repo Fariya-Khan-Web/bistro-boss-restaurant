@@ -3,6 +3,7 @@ import {
   } from "react-router-dom";
 import Root from "../Root";
 import Home from "../Layouts/Home";
+import Menu from "../Layouts/Menu";
 
 
 export const router = createBrowserRouter([
@@ -15,8 +16,8 @@ export const router = createBrowserRouter([
                 element: <Home/>,
             },
             {
-                path: '/',
-                element: <Home/>,
+                path: '/ourmenu',
+                element: <Menu/>,
             },
             {
                 path: '/',
