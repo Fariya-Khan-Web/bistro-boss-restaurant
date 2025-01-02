@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Heading from '../common/Heading';
 import MenuItem from '../common/MenuItem';
+import useData from '../../Hooks/useData';
 
 const PopulerMenu = () => {
 
-    const [items, setItems] = useState([])
+    const [items] = useData()
+    const populer = items.filter(item => item.category === 'popular')
 
-    useEffect(() => {
-        fetch('menu.json')
-            .then(res => res.json())
-            .then(data => {
-                const populer = data.filter(item => item.category === 'popular')
-                setItems(populer)
-            })
-    }, [])
-
-    console.log(items)
     return (
         <div className='max-w-screen-xl mx-auto'>
             <Heading
@@ -24,7 +16,7 @@ const PopulerMenu = () => {
             ></Heading>
             <div className='grid md:grid-cols-2 gap-10 my-10'>
                 {
-                    items.map(item => <MenuItem key={item._id} item={item}/>)
+                    populer.map(item => <MenuItem key={item._id} item={item}/>)
                 }
             </div>
         </div>

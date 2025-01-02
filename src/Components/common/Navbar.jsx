@@ -6,9 +6,10 @@ const Navbar = () => {
     const links =
         <>
             <li><Link to={'/'} className='text-[#EEFF25]'>HOME</Link></li>
-            <li><Link>CONTACT US</Link></li>
+            <li><Link to={'/contact'}>CONTACT US</Link></li>
             <li><Link>DASHBOARD</Link></li>
             <li><Link to={'/ourmenu'}>OUR MENU</Link></li>
+            <li><Link to={'/ourshop'}>OUR SHOP</Link></li>
             {/* <li><Link>CONTACT US</Link></li> */}
         </>
 

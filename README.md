@@ -5,7 +5,8 @@
 material ui for testimonial ratings
 react helmet for dynamic title
 swiper js for category slide
-react parallax
+react parallax in menu covers
+react tabs for category shop
 
 ## Eye catching ui
 

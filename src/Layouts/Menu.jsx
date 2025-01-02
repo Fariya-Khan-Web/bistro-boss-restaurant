@@ -10,18 +10,12 @@ import dessertCover from '../assets/menu/dessert-bg.jpeg'
 import pizzaCover from '../assets/menu/pizza-bg.jpg'
 import saladCover from '../assets/menu/salad-bg.jpg'
 import soupCover from '../assets/menu/soup-bg.jpg'
+import useData from '../Hooks/useData';
 
 
 const Menu = () => {
-    const [items, setItems] = useState([])
 
-    useEffect(() => {
-        fetch('menu.json')
-            .then(res => res.json())
-            .then(data => {
-                setItems(data)
-            })
-    }, [])
+    const [items] = useData()
 
     const offers = items.filter(item => item.category === "offered")
     const desserts = items.filter(item => item.category === "dessert")

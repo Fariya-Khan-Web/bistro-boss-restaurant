@@ -4,6 +4,8 @@ import {
 import Root from "../Root";
 import Home from "../Layouts/Home";
 import Menu from "../Layouts/Menu";
+import OurShop from "../Layouts/OurShop";
+import Contact from "../Layouts/Contact";
 
 
 export const router = createBrowserRouter([
@@ -20,12 +22,12 @@ export const router = createBrowserRouter([
                 element: <Menu/>,
             },
             {
-                path: '/',
-                element: <Home/>,
+                path: '/ourshop',
+                element: <OurShop/>,
             },
             {
-                path: '/',
-                element: <Home/>,
+                path: '/contact',
+                element: <Contact/>,
             },
             
         ]
