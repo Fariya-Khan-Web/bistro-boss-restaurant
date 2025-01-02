@@ -36,8 +36,8 @@ const Testimonials = () => {
 
                     {
                         testimonials.map(testimonial =>
-                            <SwiperSlide className='px-28 py-8'>
-                                
+                            <SwiperSlide className='px-12 md:px-28 py-8'>
+
                                 {/* star rating */}
                                 {/* <Rating
                                     emptySymbol="fa fa-star-o fa-2x"

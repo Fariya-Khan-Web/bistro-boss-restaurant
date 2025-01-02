@@ -26,7 +26,18 @@ const CategorySlide = () => {
                 subHeading={'---From 11:00am to 10:00pm---'}
             ></Heading>
             <Swiper
-                slidesPerView={4}
+                breakpoints={{
+                    360: {
+                        slidesPerView: 2, // For small devices (screen width >= 360px)
+                    },
+                    640: {
+                        slidesPerView: 3, // For small devices (screen width >= 640px)
+                    },
+                    1024: {
+                        slidesPerView: 4, // For large devices (screen width >= 1024px)
+                    },
+                }}
+                // slidesPerView={4}
                 spaceBetween={30}
                 // centeredSlides={true}
                 pagination={{

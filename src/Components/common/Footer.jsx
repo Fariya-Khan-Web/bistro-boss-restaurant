@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div className='grid md:grid-cols-2 text-white text-center'>
+        <div className='grid text-white text-center'>
             <div className='bg-[#1F2937] py-10'>
                 <h3 className='text-2xl py-3'>CONTACT US</h3>
                 <p>123 ABS Street, Uni 21, Bangladesh</p>
@@ -49,7 +49,7 @@ const Footer = () => {
                     </a>
                 </div>
             </div>
-            <div className='col-span-2 bg-[#151515] py-2'>Copyright © CulinaryCloud. All rights reserved.</div>
+            <div className='md:col-span-2 bg-[#151515] py-2'>Copyright © CulinaryCloud. All rights reserved.</div>
         </div>
     );
 };
