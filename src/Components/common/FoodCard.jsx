@@ -7,7 +7,7 @@ const FoodCard = ({item}) => {
     return (
         <div className="card rounded-none bg-[#F3F3F3]">
             <figure className='relative'>
-                <img
+                <img className='w-full'
                     src={image}
                     alt="food item" />
                     <div className='bg-[#111827] text-white absolute right-2 top-2 p-2 font-medium'>${price}</div>

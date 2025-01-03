@@ -27,7 +27,7 @@ const OurShop = () => {
             </Helmet>
             <PageCover bgimage={pageCover} title={'Our shop'} description={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto pariatur accusamus ipsa officia odio perspiciatis voluptate commodi.'} />
 
-            <Tabs className='max-w-screen-lg mx-auto my-24'>
+            <Tabs className='max-w-screen-lg w-[96%] mx-auto my-24'>
                 <TabList className='uppercase'>
                     <Tab>Salad</Tab>
                     <Tab>Pizza</Tab>
