@@ -4,7 +4,7 @@ import authanim from '../assets/others/authentication2.png'
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import useData from '../Hooks/useData';
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
 import { AuthContext } from '../Provider/AuthProvider';
 import { toast } from 'react-toastify';
@@ -19,6 +19,7 @@ const Login = () => {
     const [show, setShow] = useState(false)
     const [captchaInpLen, setCaptchaInpLen] = useState(null)
     const navigate = useNavigate()
+    const location = useLocation()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -32,7 +33,7 @@ const Login = () => {
             .then(result => {
                 console.log(result.user)
                 setUser(result.user)
-                navigate('/')
+                navigate(location.state?.from?.pathname || '/')
                 toast.success('User created successfully')
                 setLoading(false)
             })
