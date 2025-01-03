@@ -46,11 +46,22 @@ const Register = () => {
                 })
                     .then(res => { })
                     .catch(err => { console.log(err) })
-                toast.success('User created successfully')
                 navigate('/')
+                setLoading(false)
+                toast.success('User created successfully')
             })
             .catch(err => console.log(err))
+    }
 
+    const handleGoogle = () => {
+        loginWithGoogle()
+            .then(res => {
+                toast.success('Loged in with google')
+            })
+            .catch(err => {
+                console.log(err)
+                toast.error('Something went wrong. try again')
+            })
     }
 
     return (
@@ -101,7 +112,7 @@ const Register = () => {
                         <div className='border border-[#444444] rounded-full p-1 '>
                             <FaFacebook className='text-xl text-[#444444]' />
                         </div>
-                        <div className='border border-[#444444] rounded-full p-1'>
+                        <div onClick={handleGoogle} className='border border-[#444444] rounded-full p-1'>
                             <FaGoogle className='text-xl text-[#444444]' />
                         </div>
                         <div className='border border-[#444444] rounded-full p-1'>

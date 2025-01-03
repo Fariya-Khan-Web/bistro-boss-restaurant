@@ -12,7 +12,7 @@ import { TbEyeglass, TbEyeglassOff } from 'react-icons/tb';
 
 const Login = () => {
 
-    const { user, setUser, loginWithGoogle, loginWithEmailPass,  } = useContext(AuthContext)
+    const { user, setUser, loginWithGoogle, loginWithEmailPass, } = useContext(AuthContext)
 
     const captchaRef = useRef(null)
     const [disable, setDisable] = useState(true)
@@ -32,13 +32,14 @@ const Login = () => {
             .then(result => {
                 console.log(result.user)
                 setUser(result.user)
-                toast.success('User created successfully')
                 navigate('/')
+                toast.success('User created successfully')
+                setLoading(false)
             })
             .catch(err => console.log(err))
     }
 
-    const handleShow = () =>{
+    const handleShow = () => {
         setShow(!show)
     }
 
@@ -50,6 +51,17 @@ const Login = () => {
             setDisable(false)
         }
 
+    }
+
+    const handleGoogle = () => {
+        loginWithGoogle()
+            .then(res => {
+                toast.success('Loged in with google')
+            })
+            .catch(err => {
+                console.log(err)
+                toast.error('Something went wrong. try again')
+            })
     }
 
 
@@ -77,7 +89,7 @@ const Login = () => {
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type={show? "text":"password"} name='password' placeholder="password" className="input input-bordered" required />
+                        <input type={show ? "text" : "password"} name='password' placeholder="password" className="input input-bordered" required />
                     </div>
                     <div className="form-control mt-4">
                         <label className="label ">
@@ -108,7 +120,7 @@ const Login = () => {
                             <FaFacebook className='text-xl text-[#444444]' />
                         </div>
                         <div className='border border-[#444444] rounded-full p-1'>
-                            <FaGoogle className='text-xl text-[#444444]' />
+                            <FaGoogle onClick={handleGoogle} className='text-xl text-[#444444]' />
                         </div>
                         <div className='border border-[#444444] rounded-full p-1'>
                             <FaGithub className='text-xl text-[#444444]' />

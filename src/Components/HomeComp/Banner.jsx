@@ -22,7 +22,7 @@ import slide6 from '../../assets/home/06.png'
 
 const Banner = () => {
     return (
-        <div className=' mx-auto text-white text-center'>
+        <div className=''>
             <Swiper
                 // install Swiper modules
                 modules={[Parallax, Pagination, Scrollbar, A11y, Autoplay]}

@@ -1,24 +1,36 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
+import { toast } from 'react-toastify';
+import cart from '../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
 
 const Navbar = () => {
 
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
+
+    const handleSignout = () => {
+        logOut()
+            .then(res => { })
+            .catch(err => {
+                console.log(err)
+                toast.error('Failed to sign out. try again')
+            })
+    }
 
     const links =
-        <div className='lg:flex lg:mx-2'>
+        <div className='lg:flex items-center lg:mx-2'>
             <li><Link to={'/'} className='text-[#EEFF25]'>HOME</Link></li>
             <li><Link to={'/contact'}>CONTACT US</Link></li>
             <li><Link>DASHBOARD</Link></li>
             <li><Link to={'/ourmenu'}>OUR MENU</Link></li>
             <li><Link to={'/ourshop'}>OUR SHOP</Link></li>
-            {/* <li><Link>CONTACT US</Link></li> */}
+            <li><img className='w-12 h-8 p-0' src={cart} alt="" /></li>
+            
         </div>
 
     return (
 
-        <div className="navbar lg:px-20 fixed z-20 text-white bg-black bg-opacity-35">
+        <div className="navbar lg:px-16 fixed z-20 text-white bg-black bg-opacity-35">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -42,8 +54,8 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className='uppercase'>
-                    <h2 className="font-medium text-2xl">Bistro Boss</h2>
-                    <div className='px-4'>restaurant</div>
+                    <h2 className="font-medium text-xl md:text-2xl">Bistro Boss</h2>
+                    <div className='md:px-4'>restaurant</div>
                 </div>
             </div>
             {/* <div className="hidden lg:flex">
@@ -51,29 +63,37 @@ const Navbar = () => {
                     {links}
                 </ul>
             </div> */}
-            <div className="navbar-end flex lg:justify-center">
-                <div className="hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+            <div className="lg:navbar-center navbar-end flex lg:justify-center">
+                <div className="hidden lg:flex ">
+                    <ul className="menu menu-horizontal pr-36">
                         {links}
                     </ul>
                 </div>
-                <div className='flex items-center'>
-                    <Link to={'/auth'} className="mx-2">SIGNIN</Link>
-                    <div className="dropdown dropdown-end ml-2">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img
-                                    alt="Tailwind CSS Navbar component"
-                                    src={user.photoURL} />
+
+                {
+                    user ?
+                        <div className='flex items-center lg:mr-28'>
+                            <button onClick={handleSignout}>SIGNOUT</button>
+                            <div className="dropdown dropdown-end ml-2">
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-10 rounded-full">
+                                        <img
+                                            alt="Tailwind CSS Navbar component"
+                                            src={user.photoURL} />
+                                    </div>
+                                </div>
+                                <div
+                                    tabIndex={0}
+                                    className="menu menu-sm dropdown-content max-w-fit bg-black bg-opacity-35 text-lg rounded-box z-[1] mt-3 w-52 px-3 shadow">
+                                    {user.displayName}
+                                </div>
                             </div>
                         </div>
-                        <div
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content max-w-fit bg-black bg-opacity-35 text-lg rounded-box z-[1] mt-3 w-52 px-3 shadow">
-                            {user.displayName}
-                        </div>
-                    </div>
-                </div>
+                        :
+                        <Link to={'/auth'} className="mx-2">SIGNIN</Link>
+                }
+
+
             </div>
         </div>
 

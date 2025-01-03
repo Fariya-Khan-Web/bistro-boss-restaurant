@@ -36,7 +36,7 @@ const Testimonials = () => {
 
                     {
                         testimonials.map(testimonial =>
-                            <SwiperSlide className='px-12 md:px-28 py-8'>
+                            <SwiperSlide key={testimonial._id} className='px-12 md:px-28 py-8'>
 
                                 {/* star rating */}
                                 {/* <Rating
