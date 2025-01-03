@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const Navbar = () => {
+
+    const { user } = useContext(AuthContext)
 
     const links =
         <div className='lg:flex lg:mx-2'>
@@ -61,13 +64,13 @@ const Navbar = () => {
                             <div className="w-10 rounded-full">
                                 <img
                                     alt="Tailwind CSS Navbar component"
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                    src={user.photoURL} />
                             </div>
                         </div>
                         <div
                             tabIndex={0}
                             className="menu menu-sm dropdown-content max-w-fit bg-black bg-opacity-35 text-lg rounded-box z-[1] mt-3 w-52 px-3 shadow">
-                            name
+                            {user.displayName}
                         </div>
                     </div>
                 </div>
