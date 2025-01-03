@@ -6,6 +6,9 @@ import Home from "../Layouts/Home";
 import Menu from "../Layouts/Menu";
 import OurShop from "../Layouts/OurShop";
 import Contact from "../Layouts/Contact";
+import Auth from "../Layouts/Auth";
+import Login from "../Auth/Login";
+import Register from "../Auth/Register";
 
 
 export const router = createBrowserRouter([
@@ -32,4 +35,18 @@ export const router = createBrowserRouter([
             
         ]
     },
+    {
+        path: '/auth',
+        element: <Auth/>,
+        children:[
+            {
+                path: '/auth',
+                element: <Login/>
+            },
+            {
+                path: '/auth/register',
+                element: <Register/>
+            },
+        ]
+    }
 ]);
