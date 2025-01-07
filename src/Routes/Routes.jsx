@@ -11,6 +11,7 @@ import Login from "../Auth/Login";
 import Register from "../Auth/Register";
 import Dashboard from "../Layouts/Dashboard";
 import Cart from "../DashBoardPages/Cart";
+import PrivateRoute from "../Private/PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -61,7 +62,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/cart',
-                element: <Cart/>
+                element: <PrivateRoute><Cart/></PrivateRoute>
             },
         ]
     },

@@ -9,6 +9,7 @@ import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
 import { AuthContext } from '../Provider/AuthProvider';
 import { toast } from 'react-toastify';
 import { TbEyeglass, TbEyeglassOff } from 'react-icons/tb';
+import GoogleLogin from '../Components/common/GoogleLogin';
 
 const Login = () => {
 
@@ -52,17 +53,6 @@ const Login = () => {
             setDisable(false)
         }
 
-    }
-
-    const handleGoogle = () => {
-        loginWithGoogle()
-            .then(res => {
-                toast.success('Loged in with google')
-            })
-            .catch(err => {
-                console.log(err)
-                toast.error('Something went wrong. try again')
-            })
     }
 
 
@@ -120,9 +110,7 @@ const Login = () => {
                         <div className='border border-[#444444] rounded-full p-1 '>
                             <FaFacebook className='text-xl text-[#444444]' />
                         </div>
-                        <div className='border border-[#444444] rounded-full p-1'>
-                            <FaGoogle onClick={handleGoogle} className='text-xl text-[#444444]' />
-                        </div>
+                        <GoogleLogin/>
                         <div className='border border-[#444444] rounded-full p-1'>
                             <FaGithub className='text-xl text-[#444444]' />
                         </div>

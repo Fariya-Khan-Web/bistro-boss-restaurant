@@ -6,11 +6,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../Provider/AuthProvider';
 import { Result } from 'postcss';
+import useAxiosPublic from '../Hooks/useAxiosPublic';
+import GoogleLogin from '../Components/common/GoogleLogin';
 
 const Register = () => {
 
-    const { user, setUser, loginWithGoogle, createUser, updateUserProfile } = useContext(AuthContext)
+    const { user, setUser, loginWithGoogle, createUser, updateUserProfile, setLoading } = useContext(AuthContext)
     const navigate = useNavigate()
+    const axiosPublic = useAxiosPublic()
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -44,25 +47,52 @@ const Register = () => {
                     displayName: name,
                     photoURL: photo
                 })
-                    .then(res => { })
+                    .then(res => {
+                        const userInfo = {
+                            name: name,
+                            email: email,
+                            photoUrl: photo
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.acknowledged) {
+                                    navigate('/')
+                                    setLoading(false)
+                                    toast.success('User created successfully')
+                                }
+                            })
+                            .catch(err => { console.log(err) })
+                    })
                     .catch(err => { console.log(err) })
-                navigate('/')
-                setLoading(false)
-                toast.success('User created successfully')
             })
             .catch(err => console.log(err))
     }
 
-    const handleGoogle = () => {
-        loginWithGoogle()
-            .then(res => {
-                toast.success('Loged in with google')
-            })
-            .catch(err => {
-                console.log(err)
-                toast.error('Something went wrong. try again')
-            })
-    }
+
+    // const handleGoogle = () => {
+    //     loginWithGoogle()
+    //         .then(res => {
+    //             console.log(res.user)
+    //             const userInfo = {
+    //                 name: res.user.displayName,
+    //                 email: res.user.email,
+    //                 photoUrl: res.user.photoURL
+    //             }
+    //             axiosPublic.post('/users', userInfo)
+    //                 .then(res => {
+    //                     if (res.data.acknowledged) {
+    //                         navigate('/')
+    //                         setLoading(false)
+    //                         toast.success('Logged in with google')
+    //                     }
+    //                 })
+    //                 .catch(err => { console.log(err) })
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //             toast.error('Something went wrong. try again')
+    //         })
+    // }
 
     return (
         <div className='flex flex-col lg:flex-row-reverse lg:items-center justify-evenly shadow-2xl p-8' style={{ background: `url("${loginbg}")` }}>
@@ -112,9 +142,10 @@ const Register = () => {
                         <div className='border border-[#444444] rounded-full p-1 '>
                             <FaFacebook className='text-xl text-[#444444]' />
                         </div>
-                        <div onClick={handleGoogle} className='border border-[#444444] rounded-full p-1'>
+                        {/* <div onClick={handleGoogle} className='border border-[#444444] rounded-full p-1'>
                             <FaGoogle className='text-xl text-[#444444]' />
-                        </div>
+                        </div> */}
+                        <GoogleLogin/>
                         <div className='border border-[#444444] rounded-full p-1'>
                             <FaGithub className='text-xl text-[#444444]' />
                         </div>
