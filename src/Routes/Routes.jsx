@@ -9,6 +9,8 @@ import Contact from "../Layouts/Contact";
 import Auth from "../Layouts/Auth";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
+import Dashboard from "../Layouts/Dashboard";
+import Cart from "../DashBoardPages/Cart";
 
 
 export const router = createBrowserRouter([
@@ -31,7 +33,7 @@ export const router = createBrowserRouter([
             {
                 path: '/contact',
                 element: <Contact/>,
-            },
+            }
             
         ]
     },
@@ -48,5 +50,19 @@ export const router = createBrowserRouter([
                 element: <Register/>
             },
         ]
-    }
+    },
+    {
+        path: '/dashboard',
+        element: <Dashboard/>,
+        children:[
+            {
+                path: '/dashboard',
+                element: <Cart/>
+            },
+            {
+                path: '/dashboard/cart',
+                element: <Cart/>
+            },
+        ]
+    },
 ]);

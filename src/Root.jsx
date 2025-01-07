@@ -1,9 +1,13 @@
 import React from 'react';
 import Navbar from './Components/common/Navbar';
 import Footer from './Components/common/Footer';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 const Root = () => {
+
+  const location = useLocation()
+  const noNav = location.pathname.includes('/dashboard')
+
   return (
     <div>
       <Navbar/>

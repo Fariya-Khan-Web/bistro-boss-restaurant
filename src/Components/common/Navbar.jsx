@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { toast } from 'react-toastify';
 import cart from '../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
@@ -22,14 +22,16 @@ const Navbar = () => {
 
     const links =
         <div className='lg:flex items-center lg:mx-2'>
-            <li><Link to={'/'} className='text-[#EEFF25]'>HOME</Link></li>
-            <li><Link to={'/contact'}>CONTACT US</Link></li>
-            <li><Link>DASHBOARD</Link></li>
-            <li><Link to={'/ourmenu'}>OUR MENU</Link></li>
-            <li><Link to={'/ourshop'}>OUR SHOP</Link></li>
-            <li className='relative'>
-                <img className='w-12 h-8 p-0' src={cart} alt="" />
-                <span className="badge badge-sm indicator-item absolute bottom-0 left-7 lg:right-0 p-1 lg:p-2 hover:bg-red-600 bg-red-600 border-none text-white flex">{cartItems.length}</span>
+            <li><NavLink to={'/'} className={``}>HOME</NavLink></li>
+            <li><NavLink to={'/contact'}>CONTACT US</NavLink></li>
+            <li><Link to={'/dashboard'}>DASHBOARD</Link></li>
+            <li><NavLink to={'/ourmenu'}>OUR MENU</NavLink></li>
+            <li><NavLink to={'/ourshop'}>OUR SHOP</NavLink></li>
+            <li>
+                <Link to={'/dashboard/cart'} className='relative'>
+                    <img className='w-12 h-8 p-0' src={cart} alt="" />
+                    <span className="badge badge-sm indicator-item absolute bottom-1 lg:bottom-2 left-10 lg:right-4 p-2 hover:bg-red-600 bg-red-600 border-none text-white flex">{cartItems.length}</span>
+                </Link>
             </li>
 
         </div>
@@ -40,7 +42,7 @@ const Navbar = () => {
             <div className="navbar-start">
                 <div className="dropdown">
                     <div
-                        tabIndex={0} 
+                        tabIndex={0}
                         // role="button"
                         className="btn btn-ghost lg:hidden">
                         <svg
