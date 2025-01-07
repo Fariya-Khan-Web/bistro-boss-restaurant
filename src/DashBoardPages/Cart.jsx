@@ -3,14 +3,16 @@ import Heading from '../Components/common/Heading';
 import useCartData from '../Hooks/useCartData';
 import { MdDelete } from 'react-icons/md';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const Cart = () => {
 
     const [cartItems] = useCartData()
-    console.log(cartItems)
+    const axiosSecure = useAxiosSecure()
+    const [, ,refetch] = useCartData()
 
     // gives error in reload, says cartItems is not an array
-    const totalPrice = cartItems?.reduce((total, item) => total + item.price , 0)
+    const totalPrice = cartItems?.reduce((total, item) => total + item.price, 0)
 
     const deleteAlert = (id) => {
         Swal.fire({
@@ -23,21 +25,23 @@ const Cart = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                handleDelete(id)
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
+
+                axiosSecure.delete(`/cartItems/${id}`)
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.acknowledged) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                            refetch()
+                        }
+                    })
             }
         });
     }
 
-    const handleDelete = (id) => {
-        
-        
-
-    }
 
     return (
         <div className='py-10'>
@@ -74,7 +78,7 @@ const Cart = () => {
                                         <td><img className='w-20 rounded-md' src={item.image} alt="" /></td>
                                         <td>{item.name}</td>
                                         <td>{item.price}</td>
-                                        <td><button  onClick={() => deleteAlert(item._id)}><MdDelete className='text-red-600 text-2xl mx-5' /></button></td>
+                                        <td><button onClick={() => deleteAlert(item._id)}><MdDelete className='text-red-600 text-2xl mx-5' /></button></td>
                                     </tr>
                                 )
                             }
