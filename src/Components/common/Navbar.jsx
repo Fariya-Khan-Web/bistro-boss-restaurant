@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { toast } from 'react-toastify';
 import cart from '../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
+import useCartData from '../../Hooks/useCartData';
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
+    const [cartItems] = useCartData()
+    console.log(cartItems)
 
     const handleSignout = () => {
         logOut()
@@ -24,8 +27,11 @@ const Navbar = () => {
             <li><Link>DASHBOARD</Link></li>
             <li><Link to={'/ourmenu'}>OUR MENU</Link></li>
             <li><Link to={'/ourshop'}>OUR SHOP</Link></li>
-            <li><img className='w-12 h-8 p-0' src={cart} alt="" /></li>
-            
+            <li className='relative'>
+                <img className='w-12 h-8 p-0' src={cart} alt="" />
+                <span className="badge badge-sm indicator-item absolute bottom-0 left-7 lg:right-0 p-1 lg:p-2 hover:bg-red-600 bg-red-600 border-none text-white flex">{cartItems.length}</span>
+            </li>
+
         </div>
 
     return (
@@ -33,7 +39,10 @@ const Navbar = () => {
         <div className="navbar lg:px-16 fixed z-20 text-white bg-black bg-opacity-35">
             <div className="navbar-start">
                 <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                    <div
+                        tabIndex={0} 
+                        // role="button"
+                        className="btn btn-ghost lg:hidden">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-5 w-5 -mx-4"
