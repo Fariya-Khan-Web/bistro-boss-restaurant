@@ -72,7 +72,7 @@ const Cart = () => {
                         </thead>
                         <tbody className='text-lg'>
                             {
-                                cartItems.map((item, index) =>
+                                cartItems?.map((item, index) =>
                                     <tr>
                                         <th>{index + 1}</th>
                                         <td><img className='w-20 rounded-md' src={item.image} alt="" /></td>
