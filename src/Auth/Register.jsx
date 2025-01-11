@@ -37,7 +37,6 @@ const Register = () => {
             return toast.warning('Password must contain at leaste six characters')
         }
 
-        const profileInfo = { name, photo }
 
         createUser(email, password)
             .then(result => {

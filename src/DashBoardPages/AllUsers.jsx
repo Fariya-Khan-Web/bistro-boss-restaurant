@@ -1,6 +1,6 @@
 import React from 'react';
 import Heading from '../Components/common/Heading';
-import { MdDelete, MdGroups } from 'react-icons/md';
+import { MdAdminPanelSettings, MdDelete, MdGroups } from 'react-icons/md';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
@@ -16,7 +16,7 @@ const AllUsers = () => {
         }
     })
 
-    const handleMakeAdmin = () =>{
+    const handleMakeAdmin = (user) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -28,13 +28,13 @@ const AllUsers = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axiosSecure.delete(`/users/${id}`)
+                axiosSecure.patch(`/dashboard/admin/${user._id}`)
                     .then(res => {
                         console.log(res.data)
                         if (res.data.acknowledged) {
                             Swal.fire({
-                                title: "Deleted!",
-                                text: "User has been deleted.",
+                                title: "Done!",
+                                text: `${user.name} is an admin now.`,
                                 icon: "success"
                             });
                             refetch()
@@ -105,13 +105,22 @@ const AllUsers = () => {
                                         <th>{index + 1}</th>
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
-                                        <td className=''><button onClick={handleMakeAdmin} className='p-2 text-white bg-[#D1A054] text-3xl rounded-md'><MdGroups /></button></td>
+
+                                        <td>
+                                            {
+                                                user.role == 'admin' ?
+                                                    <button className='p-2 text-white bg-[#D1A054] text-3xl rounded-md'>
+                                                        < MdAdminPanelSettings  />
+                                                    </button>
+                                                    :
+                                                    <button onClick={() => handleMakeAdmin(user)} className='p-2 text-white bg-[#D1A054] text-3xl rounded-md'><MdGroups /></button>
+                                            }
+                                        </td>
+
                                         <td><button onClick={() => deleteAlert(user._id)}><MdDelete className='text-red-600 text-2xl mx-5' /></button></td>
                                     </tr>
                                 )
                             }
-
-
                         </tbody>
                     </table>
                 </div>
