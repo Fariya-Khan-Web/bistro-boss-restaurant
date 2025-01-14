@@ -11,8 +11,8 @@ const Cart = () => {
     const axiosSecure = useAxiosSecure()
     const [, ,refetch] = useCartData()
 
-    const cart = [...cartItems]
-    console.log(cartItems)
+     
+    console.log({cartItems})
     // gives error in reload, says cartItems is not an array
     const totalPrice = cartItems?.reduce((total, item) => total + item.price, 0)
 

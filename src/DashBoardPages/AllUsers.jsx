@@ -12,6 +12,7 @@ const AllUsers = () => {
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosSecure.get('/users')
+            console.log(localStorage.getItem('access-token'))
             return res.data
         }
     })
