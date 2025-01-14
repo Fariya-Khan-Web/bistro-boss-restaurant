@@ -10,11 +10,13 @@ import { GrMail } from 'react-icons/gr';
 import { HiMiniShoppingBag } from 'react-icons/hi2';
 import { IoMenu } from 'react-icons/io5';
 import { ImSpoonKnife } from 'react-icons/im';
+import useAdmin from '../Hooks/useAdmin';
 
 const Dashboard = () => {
 
     // TODO- get isAdmin fron DB
-    const isAdmin = true
+    const [isAdmin] = useAdmin()
+    console.log(isAdmin)
 
     return (
         <div>
