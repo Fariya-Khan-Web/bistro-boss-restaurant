@@ -16,7 +16,7 @@ const FoodCard = ({ item }) => {
     const axiosSecure = useAxiosSecure()
     const [, ,refetch] = useCartData()
 
-    const handleAdd = item => {
+    const handleAdd = () => {
         if (user) {
             const cartItem = {
                 item_id: _id,
@@ -26,7 +26,7 @@ const FoodCard = ({ item }) => {
                 email: user.email
             }
 
-            axiosSecure.post('http://localhost:2000/cartitems', cartItem)
+            axiosSecure.post('/cartitems', cartItem)
                 .then(res => {
                     console.log(res.data)
                     if (res.data.acknowledged) {
@@ -80,7 +80,7 @@ const FoodCard = ({ item }) => {
                 <h2 className="card-title">{name}</h2>
                 <p>{recipe}</p>
                 <div className="card-actions mx-auto">
-                    <button onClick={() => handleAdd(item)} className="btn uppercase">Add to Cart</button>
+                    <button onClick={handleAdd} className="btn uppercase">Add to Cart</button>
                 </div>
             </div>
         </div>

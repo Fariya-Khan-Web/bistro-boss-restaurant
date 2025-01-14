@@ -11,19 +11,19 @@ import 'swiper/css/navigation';
 // import required modules
 import { Navigation } from 'swiper/modules';
 import Rating from '@mui/material/Rating';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import { useQueries, useQuery } from '@tanstack/react-query';
 
 const Testimonials = () => {
 
-    const [testimonials, setTestimonials] = useState([])
-
-    useEffect(() => {
-        fetch('http://localhost:2000/reviews')
-            .then(res => res.json())
-            .then(data => {
-                setTestimonials(data)
-            })
-
-    }, [])
+    const axiosPublic = useAxiosPublic()
+    const {data: testimonials =[]} = useQuery({
+        queryKey: ['testimonials'],
+        queryFn: async()=>{
+            const res = await axiosPublic.get('/reviews')
+            return res.data
+        }
+    })
 
     return (
         <div className='max-w-screen-xl mx-auto my-24'>

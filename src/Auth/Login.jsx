@@ -56,7 +56,6 @@ const Login = () => {
     }
 
 
-
     useEffect(() => {
         loadCaptchaEnginge(6);
     }, [captchaInpLen === 0])
@@ -82,6 +81,7 @@ const Login = () => {
                         </label>
                         <input type={show ? "text" : "password"} name='password' placeholder="password" className="input input-bordered" required />
                     </div>
+
                     <div className="form-control mt-4">
                         <label className="label ">
                             <LoadCanvasTemplate />
@@ -90,6 +90,7 @@ const Login = () => {
                             <input ref={captchaRef} type="text" placeholder="type the text above" className="input w-full input-bordered" required />
                         </div>
                     </div>
+                    
                     <div className="form-control mt-6">
                         <button disabled={disable} className="btn bg-[#D1A054B3]">Login</button>
                     </div>

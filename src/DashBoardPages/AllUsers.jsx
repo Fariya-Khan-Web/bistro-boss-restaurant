@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Heading from '../Components/common/Heading';
 import { MdAdminPanelSettings, MdDelete, MdGroups } from 'react-icons/md';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const AllUsers = () => {
 
+    const {user} = useContext(AuthContext)
     const axiosSecure = useAxiosSecure()
-    const { refetch, data: users = [] } = useQuery({
-        queryKey: ['users'],
+
+    const {data: users = [], isLoading, refetch } = useQuery({
+        queryKey: ['users', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get('/users')
             console.log(localStorage.getItem('access-token'))
             return res.data
-        }
+        },
+        onError: (error) => {
+            console.error('Error fetching cart items:', error);
+        },
     })
+
+    if(isLoading){
+        return <div className='min-h-screen flex justify-center items-center'><span className="loading loading-ring loading-lg"></span></div>
+    } 
 
     const handleMakeAdmin = (user) => {
         Swal.fire({

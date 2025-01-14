@@ -7,14 +7,16 @@ import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const Cart = () => {
 
-    const [cartItems] = useCartData()
     const axiosSecure = useAxiosSecure()
-    const [, ,refetch] = useCartData()
+    const [cart, isLoading ,refetch] = useCartData()
 
+    if(isLoading){
+        return <div className='min-h-screen flex justify-center items-center'><span className="loading loading-ring loading-lg"></span></div>
+    } 
      
-    console.log({cartItems})
+    console.log({cart})
     // gives error in reload, says cartItems is not an array
-    const totalPrice = cartItems?.reduce((total, item) => total + item.price, 0)
+    const totalPrice = cart?.reduce((total, item) => total + item.price, 0)
 
     const deleteAlert = (id) => {
         Swal.fire({
@@ -28,7 +30,7 @@ const Cart = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axiosSecure.delete(`/cartItems/${id}`)
+                axiosSecure.delete(`/cartItem/${id}`)
                     .then(res => {
                         console.log(res.data)
                         if (res.data.acknowledged) {
@@ -55,7 +57,7 @@ const Cart = () => {
             <div className='max-w-screen-xl w-[94%] mx-auto bg-white p-12 my-12 rounded'>
 
                 <div className='flex justify-between uppercase'>
-                    <h2 className='text-xl md:text-2xl font-semibold'>Total orders: {cartItems.length}</h2>
+                    <h2 className='text-xl md:text-2xl font-semibold'>Total orders: {cart.length}</h2>
                     <h2 className='text-xl md:text-2xl font-semibold'>Total price: ${totalPrice}</h2>
                     <button className='bg-[#D1A054] text-xl text-white p-1 px-4 rounded-md'>PAY</button>
                 </div>
@@ -74,8 +76,8 @@ const Cart = () => {
                         </thead>
                         <tbody className='text-lg'>
                             {
-                                cartItems?.map((item, index) =>
-                                    <tr>
+                                cart?.map((item, index) =>
+                                    <tr key={index}>
                                         <th>{index + 1}</th>
                                         <td><img className='w-20 rounded-md' src={item.image} alt="" /></td>
                                         <td>{item.name}</td>

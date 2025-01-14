@@ -2,14 +2,14 @@ import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { toast } from 'react-toastify';
-import cart from '../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
+import carticon from '../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
 import useCartData from '../../Hooks/useCartData';
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
-    const [cartItems] = useCartData()
-    console.log({cartItems})
+    const [cart] = useCartData()
+    console.log({cart})
 
     const handleSignout = () => {
         logOut()
@@ -29,8 +29,8 @@ const Navbar = () => {
             <li><NavLink to={'/ourshop'}>OUR SHOP</NavLink></li>
             <li>
                 <Link to={'/dashboard/cart'} className='relative'>
-                    <img className='w-12 h-8 p-0' src={cart} alt="" />
-                    <span className="badge badge-sm indicator-item absolute bottom-1 lg:bottom-2 left-10 lg:right-4 p-2 hover:bg-red-600 bg-red-600 border-none text-white flex">{cartItems.length}</span>
+                    <img className='w-12 h-8 p-0' src={carticon} alt="" />
+                    <span className="badge badge-sm indicator-item absolute bottom-1 lg:bottom-2 left-10 lg:right-4 p-2 hover:bg-red-600 bg-red-600 border-none text-white flex">{cart.length}</span>
                 </Link>
             </li>
 
