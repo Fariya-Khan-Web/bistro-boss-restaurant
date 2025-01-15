@@ -1,11 +1,12 @@
 import React from 'react';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import Heading from '../Components/common/Heading';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { useForm } from 'react-hook-form';
 import { FaUtensils } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const UpdateItem = () => {
 
@@ -16,39 +17,31 @@ const UpdateItem = () => {
     console.log(data)
 
     const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
+
+    const navigate = useNavigate()
 
 
     const { handleSubmit, register, reset, formState: { errors } } = useForm();
     const onSubmit = async (values) => {
-        console.log(values.image[0])
         console.log(values)
 
-        const imageFile = { image: values.image[0] }
-        const res = await axiosPublic.post(image_hosting_api, imageFile, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-        console.log(res.data)
-
-        if (res.data.success) {
-
-            // save the data in mongodb
             const menuItem = {
                 name: values.name,
                 category: values.category,
                 price: parseFloat(values.price),
-                recipe: values.recipe,
-                image: values?.image
+                recipe: values.recipe
             }
 
-            const menuRes = await axiosSecure.patch(`/menu/${id}`, menuItem)
+            const menuRes = await axiosSecure.put(`/menu/${id}`, menuItem)
             console.log(menuRes.data)
-            if (menuRes.data.insertedId) {
-                toast.success('New item added to the menu')
-                reset()
+            if (menuRes.data.acknowledged) {
+                toast.success('Updated successfully')
             }
-        }
+
+            reset()
+            navigate(-1)
+
     };
 
     return (
