@@ -2,11 +2,51 @@ import React from 'react';
 import Heading from '../Components/common/Heading';
 import { useForm } from 'react-hook-form';
 import { FaUtensils } from 'react-icons/fa';
+import useAxiosPublic from '../Hooks/useAxiosPublic';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
+import { toast } from 'react-toastify';
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY
+console.log(image_hosting_key)
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
 const AddItems = () => {
 
-    const { handleSubmit, register, formState: { errors } } = useForm();
-    const onSubmit = values => console.log(values);
+    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
+
+    const { handleSubmit, register, reset, formState: { errors } } = useForm();
+    const onSubmit = async (data) => {
+        console.log(data.image[0])
+        console.log(data)
+
+        const imageFile = { image: data.image[0] }
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        console.log(res.data)
+
+        if (res.data.success) {
+            
+            // save the data in mongodb
+            const menuItem = {
+                name: data.name,
+                category: data.category,
+                price: parseFloat(data.price),
+                recipe: data.recipe,
+                image: res.data.data.display_url                
+            }
+
+            const menuRes = await axiosSecure.post('/menu', menuItem)
+            console.log(menuRes.data)
+            if(menuRes.data.insertedId){
+                toast.success('New item added to the menu')
+                reset()
+            }
+        }
+    };
 
     return (
         <div className='py-10 bg-white'>
@@ -18,7 +58,7 @@ const AddItems = () => {
             <div className='max-w-screen-xl w-[92%] mx-auto bg-[#F3F3F3] my-12 rounded'>
 
 
-                <form className="card-body grid grid-cols-2 " onSubmit={handleSubmit((data) => console.log(data))}>
+                <form className="card-body grid grid-cols-2 " onSubmit={handleSubmit(onSubmit)}>
 
                     <div className="form-control col-span-2">
                         <label className="label">
