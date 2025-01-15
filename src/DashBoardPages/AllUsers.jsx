@@ -91,7 +91,7 @@ const AllUsers = () => {
                 subHeading={'How Many?'}>
             </Heading>
 
-            <div className='max-w-screen-xl w-[94%] mx-auto bg-white p-12 my-12 rounded'>
+            <div className='max-w-screen-xl w-[92%] mx-auto bg-white p-12 my-12 rounded'>
 
                 <div className='flex justify-between uppercase'>
                     <h2 className='text-xl md:text-2xl font-semibold'>Total users: {users.length}</h2>
@@ -137,7 +137,6 @@ const AllUsers = () => {
                 </div>
 
             </div>
-
 
         </div>
     );
