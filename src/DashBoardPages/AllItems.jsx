@@ -5,6 +5,7 @@ import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { MdDelete } from 'react-icons/md';
 import { CiEdit } from 'react-icons/ci';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const AllItems = () => {
 
@@ -85,7 +86,7 @@ const AllItems = () => {
                                         <td><img className='rounded-lg w-20' src={item.image} alt="" /></td>
                                         <td>{item.name}</td>
                                         <td>{item.price}</td>
-                                        <td><button className='bg-[#D1A054] p-1 rounded-lg w-10 text-white text-2xl' onClick={() => deleteAlert(item._id)}><CiEdit className='mx-auto' /></button></td>
+                                        <td><button className='bg-[#D1A054] p-1 rounded-lg w-10 text-white text-2xl' ><Link to={`/dashboard/updateItem/${item._id}`} ><CiEdit className='mx-auto' /></Link></button></td>
                                         <td><button className='bg-red-600 p-1 rounded-lg w-10 text-white text-2xl' onClick={() => deleteAlert(item._id)}><MdDelete className='mx-auto' /></button></td>
                                     </tr>
                                 )

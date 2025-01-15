@@ -16,6 +16,7 @@ import AllUsers from "../DashBoardPages/AllUsers";
 import AdminRoute from "../Private/AdminRoute";
 import AddItems from "../DashBoardPages/AddItems";
 import AllItems from "../DashBoardPages/AllItems";
+import UpdateItem from "../DashBoardPages/UpdateItem";
 
 
 export const router = createBrowserRouter([
@@ -62,10 +63,6 @@ export const router = createBrowserRouter([
         children:[
             {
                 path: '/dashboard',
-                element: <Cart/>
-            },
-            {
-                path: '/dashboard/cart',
                 element: <PrivateRoute><Cart/></PrivateRoute>
             },
 
@@ -77,6 +74,11 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/manage',
                 element: <AdminRoute><AllItems/></AdminRoute>
+            },
+            {
+                path: '/dashboard/updateItem/:id',
+                loader: ({params}) => fetch(`http://localhost:2000/menu/${params.id}`) ,
+                element: <AdminRoute><UpdateItem/></AdminRoute>
             },
             {
                 path: '/dashboard/allusers',
