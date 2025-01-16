@@ -17,6 +17,7 @@ import AdminRoute from "../Private/AdminRoute";
 import AddItems from "../DashBoardPages/AddItems";
 import AllItems from "../DashBoardPages/AllItems";
 import UpdateItem from "../DashBoardPages/UpdateItem";
+import Payment from "../DashBoardPages/Payment/Payment";
 
 
 export const router = createBrowserRouter([
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <PrivateRoute><Cart/></PrivateRoute>
+            },
+            {
+                path: '/dashboard/pay',
+                element: <PrivateRoute><Payment/></PrivateRoute>
             },
 
             // admin routes

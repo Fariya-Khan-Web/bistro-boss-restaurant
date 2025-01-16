@@ -4,17 +4,18 @@ import useCartData from '../Hooks/useCartData';
 import { MdDelete } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
 
     const axiosSecure = useAxiosSecure()
-    const [cart, isLoading ,refetch] = useCartData()
+    const [cart, isLoading, refetch] = useCartData()
 
-    if(isLoading){
+    if (isLoading) {
         return <div className='min-h-screen flex justify-center items-center'><span className="loading loading-ring loading-lg"></span></div>
-    } 
-     
-    console.log({cart})
+    }
+
+    console.log({ cart })
     // gives error in reload, says cartItems is not an array
     const totalPrice = cart?.reduce((total, item) => total + item.price, 0)
 
@@ -57,9 +58,11 @@ const Cart = () => {
             <div className='max-w-screen-xl w-[94%] mx-auto bg-white p-12 my-12 rounded'>
 
                 <div className='flex justify-between uppercase'>
-                    <h2 className='text-xl md:text-2xl font-semibold'>Total orders: {cart.length}</h2>
+                    <h2 className='text-xl md:text-2xl font-semibold'>Total orders: {cart?.length}</h2>
                     <h2 className='text-xl md:text-2xl font-semibold'>Total price: ${totalPrice}</h2>
-                    <button className='bg-[#D1A054] text-xl text-white p-1 px-4 rounded-md'>PAY</button>
+                    <Link to={'/dashboard/pay'}>
+                        <button disabled={!cart?.length} className='bg-[#D1A054] text-xl text-white p-1 px-4 rounded-md'>PAY</button>
+                    </Link>
                 </div>
 
                 <div className="overflow-x-auto rounded-xl my-8">
@@ -79,10 +82,10 @@ const Cart = () => {
                                 cart?.map((item, index) =>
                                     <tr key={index}>
                                         <th>{index + 1}</th>
-                                        <td><img className='w-20 rounded-md' src={item.image} alt="" /></td>
-                                        <td>{item.name}</td>
-                                        <td>{item.price}</td>
-                                        <td><button onClick={() => deleteAlert(item._id)}><MdDelete className='text-red-600 text-2xl mx-5' /></button></td>
+                                        <td><img className='w-20 rounded-md' src={item?.image} alt="" /></td>
+                                        <td>{item?.name}</td>
+                                        <td>{item?.price}</td>
+                                        <td><button onClick={() => deleteAlert(item?._id)}><MdDelete className='text-red-600 text-2xl mx-5' /></button></td>
                                     </tr>
                                 )
                             }

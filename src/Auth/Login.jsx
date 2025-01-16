@@ -13,7 +13,7 @@ import GoogleLogin from '../Components/common/GoogleLogin';
 
 const Login = () => {
 
-    const { user, setUser, loginWithGoogle, loginWithEmailPass, } = useContext(AuthContext)
+    const { user, setUser, loginWithGoogle, loginWithEmailPass, setLoading } = useContext(AuthContext)
 
     const captchaRef = useRef(null)
     const [disable, setDisable] = useState(false)
@@ -35,8 +35,8 @@ const Login = () => {
                 console.log(result.user)
                 setUser(result.user)
                 navigate(location.state?.from?.pathname || '/')
-                toast.success('logged in successfully')
                 setLoading(false)
+                toast.success('logged in successfully')
             })
             .catch(err => {
                 console.log(err)
