@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { toast } from 'react-toastify';
 import carticon from '../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
@@ -11,11 +11,14 @@ const Navbar = () => {
     const { user, logOut } = useContext(AuthContext)
     const [isAdmin] = useAdmin()
     const [cart] = useCartData()
+    const navigate = useNavigate()
     console.log({ cart })
 
     const handleSignout = () => {
         logOut()
-            .then(res => { })
+            .then(res => { 
+                navigate('/')
+            })
             .catch(err => {
                 console.log(err)
                 toast.error('Failed to sign out. try again')

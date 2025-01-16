@@ -16,7 +16,7 @@ const Login = () => {
     const { user, setUser, loginWithGoogle, loginWithEmailPass, setLoading } = useContext(AuthContext)
 
     const captchaRef = useRef(null)
-    const [disable, setDisable] = useState(false)
+    const [disable, setDisable] = useState(true)
     const [show, setShow] = useState(false)
     const [captchaInpLen, setCaptchaInpLen] = useState(null)
     const navigate = useNavigate()
@@ -48,19 +48,19 @@ const Login = () => {
         setShow(!show)
     }
 
-    // const handleValidateCaptcha = e => {
-    //     const user_captcha_value = captchaRef.current.value
-    //     setCaptchaInpLen(user_captcha_value.length)
+    const handleValidateCaptcha = e => {
+        const user_captcha_value = captchaRef.current.value
+        setCaptchaInpLen(user_captcha_value.length)
 
-    //     if (validateCaptcha(user_captcha_value)) {
-    //         setDisable(false)
-    //     }
+        if (validateCaptcha(user_captcha_value)) {
+            setDisable(false)
+        }
 
-    // }
+    }
 
-    // useEffect(() => {
-    //     loadCaptchaEnginge(6);
-    // }, [captchaInpLen === 0])
+    useEffect(() => {
+        loadCaptchaEnginge(6);
+    }, [captchaInpLen === 0])
 
 
     return (
@@ -84,14 +84,14 @@ const Login = () => {
                         <input type={show ? "text" : "password"} name='password' placeholder="password" className="input input-bordered" required />
                     </div>
 
-                    {/* <div className="form-control mt-4">
+                    <div className="form-control mt-4">
                         <label className="label ">
                             <LoadCanvasTemplate />
                         </label>
                         <div className='flex'>
                             <input ref={captchaRef} type="text" placeholder="type the text above" className="input w-full input-bordered" required />
                         </div>
-                    </div> */}
+                    </div>
                     
                     <div className="form-control mt-6">
                         <button disabled={disable} className="btn bg-[#D1A054B3]">Login</button>
@@ -102,9 +102,9 @@ const Login = () => {
                     {show ? <TbEyeglassOff /> : <TbEyeglass />}
                 </button>
 
-                {/* <button onClick={handleValidateCaptcha} className='absolute right-3 bottom-[214px] text-[#D1A054B3]'>
+                <button onClick={handleValidateCaptcha} className='absolute right-3 bottom-[214px] text-[#D1A054B3]'>
                     {disable ? <MdCheckBoxOutlineBlank /> : <MdCheckBox />}
-                </button> */}
+                </button>
 
                 <div className='text-center my-3'>
                     <Link to={'/auth/register'} className='text-center text-[#D1A054B3]'>New here? Create a New Account</Link>
