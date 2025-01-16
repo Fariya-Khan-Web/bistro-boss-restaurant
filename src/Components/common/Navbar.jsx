@@ -8,7 +8,7 @@ import useAdmin from '../../Hooks/useAdmin';
 
 const Navbar = () => {
 
-    const { user, logOut } = useContext(AuthContext)
+    const { user, logOut, setLoading } = useContext(AuthContext)
     const [isAdmin] = useAdmin()
     const [cart] = useCartData()
     const navigate = useNavigate()
@@ -16,13 +16,14 @@ const Navbar = () => {
 
     const handleSignout = () => {
         logOut()
-            .then(res => { 
+            .then(res => {
                 navigate('/')
             })
             .catch(err => {
                 console.log(err)
                 toast.error('Failed to sign out. try again')
             })
+        setLoading(false)
     }
 
     const links =
