@@ -4,12 +4,14 @@ import { AuthContext } from '../../Provider/AuthProvider';
 import { toast } from 'react-toastify';
 import carticon from '../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
 import useCartData from '../../Hooks/useCartData';
+import useAdmin from '../../Hooks/useAdmin';
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
+    const [isAdmin] = useAdmin()
     const [cart] = useCartData()
-    console.log({cart})
+    console.log({ cart })
 
     const handleSignout = () => {
         logOut()
@@ -24,7 +26,15 @@ const Navbar = () => {
         <div className='lg:flex items-center lg:mx-2'>
             <li><NavLink to={'/'} className={``}>HOME</NavLink></li>
             <li><NavLink to={'/contact'}>CONTACT US</NavLink></li>
-            <li><Link to={'/dashboard'}>DASHBOARD</Link></li>
+
+            {
+                isAdmin ?
+                    <li><Link to={'/dashboard/adminHome'}>DASHBOARD</Link></li>
+                    :
+                    <li><Link to={'/dashboard/userHome'}>DASHBOARD</Link></li>
+
+            }
+
             <li><NavLink to={'/ourmenu'}>OUR MENU</NavLink></li>
             <li><NavLink to={'/ourshop'}>OUR SHOP</NavLink></li>
             <li>

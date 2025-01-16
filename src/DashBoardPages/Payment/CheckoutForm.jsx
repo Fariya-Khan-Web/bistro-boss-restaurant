@@ -85,6 +85,7 @@ const CheckoutForm = () => {
                     email: user?.email,
                     name: user?.displayName,
                     price: price,
+                    category: 'Food order',
                     transactionId: transactionId,
                     date: new Date(), //TODO: convert with moment js
                     cartIds: cart.map(item => item._id),

@@ -45,7 +45,7 @@ const Dashboard = () => {
                         {
                             isAdmin ?
                                 <div className='uppercase'>
-                                    <li><NavLink to='/dashboard/adminhome' className={'py-3 my-1'}><IoMdHome className='text-2xl' />Admin Home</NavLink></li>
+                                    <li><NavLink to='/dashboard/adminHome' className={'py-3 my-1'}><IoMdHome className='text-2xl' />Admin Home</NavLink></li>
                                     <li><NavLink to='/dashboard/additem' className={'py-3 my-1'}><ImSpoonKnife className='text-2xl' />Add Items</NavLink></li>
                                     <li><NavLink to='/dashboard/manage' className={'py-3 my-1'}><FaListUl className='text-2xl' />Manage Items</NavLink></li>
                                     <li><NavLink to='/dashboard/manageBooking' className={'py-3 my-1'}><FaBook className='text-2xl' />Manage Bookings</NavLink></li>
@@ -53,7 +53,7 @@ const Dashboard = () => {
                                 </div>
                                 :
                                 <div className='uppercase'>
-                                    <li><NavLink to='/dashboard/home' className={'py-3 my-1'}><IoMdHome className='text-2xl' />User Home</NavLink></li>
+                                    <li><NavLink to='/dashboard/userHome' className={'py-3 my-1'}><IoMdHome className='text-2xl' />User Home</NavLink></li>
                                     <li><NavLink to='/dashboard/reservation' className={'py-3 my-1'}><FaCalendarAlt className='text-2xl' />Reservation</NavLink></li>
                                     <li><NavLink to='/dashboard/payHistory' className={'py-3 my-1'}><LuHistory className='text-2xl' />Payment history</NavLink></li>
                                     <li><NavLink to='/dashboard/cart' className={'py-3 my-1'}><MdShoppingCart className='text-2xl' />my cart</NavLink></li>
